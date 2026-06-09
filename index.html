@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      viewport meta tag: tells mobile browsers to use the device's actual width
+      instead of zooming out. Essential for responsive/mobile-first design.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO: Describes the page for search engines and browser tabs -->
+    <meta
+      name="description"
+      content="Nnamdi — Full-Stack Developer building clean, functional web experiences. Portfolio of projects, skills, and contact."
+    />
+    <meta name="author" content="Nnamdi" />
+
+    <title>Nnamdi | Full-Stack Developer</title>
+
+    <!-- Google Fonts: Bebas Neue for bold display headings, Lato for clean body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Our main stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!--
+      Remix Icons: A free, open-source icon library.
+      We use it for GitHub, LinkedIn, email, and other icons.
+    -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- ============================================================
+         STICKY NAVIGATION BAR
+         role="banner" and <nav> with aria-label help screen readers
+         understand this is the site's main navigation.
+    ============================================================ -->
+    <header class="navbar" role="banner">
+      <div class="nav-container">
+
+        <!-- Logo / Brand Name -->
+        <a href="#home" class="nav-logo" aria-label="Nnamdi – go to top">
+          <span class="logo-bracket">&lt;</span>Nnamdi<span class="logo-bracket">/&gt;</span>
+        </a>
+
+        <!--
+          Hamburger button — only visible on mobile.
+          aria-expanded and aria-controls connect it to the menu
+          for screen readers. JavaScript toggles aria-expanded.
+        -->
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+        >
+          <!-- Three lines that animate into an X when menu opens -->
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+
+        <!--
+          Main navigation links.
+          The "active" class is added by JavaScript as the user scrolls.
+        -->
+        <nav id="nav-menu" class="nav-menu" aria-label="Main navigation">
+          <ul class="nav-list" role="list">
+            <li><a href="#home"     class="nav-link">Home</a></li>
+            <li><a href="#about"    class="nav-link">About</a></li>
+            <li><a href="#skills"   class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact"  class="nav-link">Contact</a></li>
+            <!-- Resume is a direct download, not a scroll anchor -->
+            <li>
+              <a
+                href="assets/resume.pdf"
+                class="nav-link nav-resume-btn"
+                download
+                aria-label="Download Nnamdi's resume as PDF"
+              >Resume</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         MAIN CONTENT
+         <main> wraps everything users scroll through.
+         Each section has a unique ID used by the nav links.
+    ============================================================ -->
+    <main>
+
+      <!-- ── 1. HERO SECTION ─────────────────────────────────────── -->
+      <section id="home" class="hero" aria-label="Introduction">
+
+        <div class="hero-container">
+
+          <!-- Left: text content -->
+          <div class="hero-text fade-in">
+
+            <!-- Greeting line -->
+            <p class="hero-greeting">Hey there, I'm</p>
+
+            <!-- Main name heading — largest text on the page -->
+            <h1 class="hero-name">Nnamdi</h1>
+
+            <!-- Animated role title — changed by JavaScript -->
+            <p class="hero-role">
+              <span class="role-prefix">I build </span>
+              <span class="role-text" id="role-text">web experiences.</span>
+            </p>
+
+            <!-- Short intro paragraph -->
+            <p class="hero-intro">
+              A full-stack developer in training, turning ideas into clean,
+              functional code — one commit at a time. Based in Enugu, Nigeria.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="hero-ctas" role="group" aria-label="Call to action buttons">
+              <a href="#projects" class="btn btn-primary">View Projects</a>
+              <a
+                href="assets/resume.pdf"
+                class="btn btn-outline"
+                download
+                aria-label="Download resume PDF"
+              >Download Resume</a>
+            </div>
+
+            <!-- Social links in hero -->
+            <div class="hero-socials" aria-label="Social media links">
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                <i class="ri-github-fill" aria-hidden="true"></i>
+              </a>
+              <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                <i class="ri-linkedin-box-fill" aria-hidden="true"></i>
+              </a>
+              <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter profile">
+                <i class="ri-twitter-x-fill" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: profile photo -->
+          <div class="hero-photo fade-in fade-delay">
+            <!--
+              alt text describes the image for screen readers and when
+              the image fails to load. Always be descriptive.
+            -->
+            <div class="photo-frame">
+              <img
+                src="images/profile-photo.jpg"
+                alt="Nnamdi, Full-Stack Developer, smiling and facing the camera"
+                class="profile-img"
+                width="400"
+                height="400"
+                loading="eager"
+              />
+              <!-- Decorative corner accents — purely visual, hidden from screen readers -->
+              <span class="frame-corner top-left"  aria-hidden="true"></span>
+              <span class="frame-corner top-right" aria-hidden="true"></span>
+              <span class="frame-corner bot-left"  aria-hidden="true"></span>
+              <span class="frame-corner bot-right" aria-hidden="true"></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Scroll-down hint arrow -->
+        <a href="#about" class="scroll-hint" aria-label="Scroll down to About section">
+          <i class="ri-arrow-down-line" aria-hidden="true"></i>
+        </a>
+
+      </section>
+      <!-- ── END HERO ─────────────────────────────────────────────── -->
+
+
+      <!-- ── 2. ABOUT SECTION ─────────────────────────────────────── -->
+      <section id="about" class="about section-padding" aria-label="About me">
+        <div class="container">
+
+          <!-- Section heading — reused pattern across all sections -->
+          <div class="section-heading fade-in">
+            <span class="section-tag">01 / About</span>
+            <h2 class="section-title">The Story So Far</h2>
+          </div>
+
+          <div class="about-grid">
+
+            <!-- Left: text blocks -->
+            <div class="about-text fade-in">
+              <p class="about-para">
+                I'm a full-stack developer in training, currently enrolled in a
+                government-backed technology programme in Enugu, Nigeria, run in
+                partnership with <strong>Turing Tech LLC</strong>. My programme
+                covers HTML, CSS, Tailwind CSS, JavaScript, version control, and
+                AI data annotation.
+              </p>
+              <p class="about-para">
+                Before code, I had three laptops and a lot of time to figure out
+                what I actually wanted to build. That journey taught me patience,
+                resourcefulness, and the habit of pushing through problems until
+                something finally works. Those traits show up in every project
+                I touch.
+              </p>
+              <p class="about-para">
+                My goal is to grow from a solid JavaScript foundation toward
+                full-stack proficiency — and eventually into lower-level
+                programming. Right now I'm documenting that journey publicly
+                through my <strong>#BiP60</strong> Build in Public challenge.
+              </p>
+
+              <!-- Quick-fact pills -->
+              <ul class="about-facts" role="list" aria-label="Quick facts">
+                <li class="fact-pill">
+                  <i class="ri-map-pin-line" aria-hidden="true"></i>
+                  Enugu, Nigeria
+                </li>
+                <li class="fact-pill">
+                  <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+                  Full-Stack in Training
+                </li>
+                <li class="fact-pill">
+                  <i class="ri-building-line" aria-hidden="true"></i>
+                  Turing Tech LLC
+                </li>
+                <li class="fact-pill">
+                  <i class="ri-megaphone-line" aria-hidden="true"></i>
+                  #BiP60 Build in Public
+                </li>
+              </ul>
+            </div>
+
+            <!-- Right: decorative stat cards -->
+            <div class="about-stats fade-in fade-delay">
+              <div class="stat-card">
+                <span class="stat-number">3+</span>
+                <span class="stat-label">Projects Completed</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">60</span>
+                <span class="stat-label">Day Build Challenge</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Platforms Publishing</span>
+              </div>
+              <div class="stat-card stat-card--accent">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Commits Ahead</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ── END ABOUT ────────────────────────────────────────────── -->
+
+
+      <!-- ── 3. SKILLS SECTION ────────────────────────────────────── -->
+      <section id="skills" class="skills section-padding" aria-label="Skills">
+        <div class="container">
+
+          <div class="section-heading fade-in">
+            <span class="section-tag">02 / Skills</span>
+            <h2 class="section-title">What I Work With</h2>
+          </div>
+
+          <!--
+            Skills are split into two groups:
+            "Proficient" = things I can demonstrate right now
+            "Currently Learning" = honest signalling of growth direction
+          -->
+          <div class="skills-wrapper">
+
+            <!-- PROFICIENT -->
+            <div class="skills-group fade-in">
+              <h3 class="skills-group-title">Proficient</h3>
+
+              <div class="skills-grid">
+
+                <!-- Frontend category -->
+                <div class="skill-category">
+                  <h4 class="skill-category-title">
+                    <i class="ri-layout-line" aria-hidden="true"></i>
+                    Frontend
+                  </h4>
+                  <ul class="skill-list" role="list">
+                    <li class="skill-item">
+                      <i class="ri-html5-line" aria-hidden="true"></i> HTML5
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-css3-line" aria-hidden="true"></i> CSS3
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-article-line" aria-hidden="true"></i> Tailwind CSS
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-smartphone-line" aria-hidden="true"></i> Responsive Design
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-accessibility-line" aria-hidden="true"></i> Accessibility (a11y)
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Tools category -->
+                <div class="skill-category">
+                  <h4 class="skill-category-title">
+                    <i class="ri-tools-line" aria-hidden="true"></i>
+                    Tools
+                  </h4>
+                  <ul class="skill-list" role="list">
+                    <li class="skill-item">
+                      <i class="ri-git-branch-line" aria-hidden="true"></i> Git
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-github-line" aria-hidden="true"></i> GitHub
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-code-s-slash-line" aria-hidden="true"></i> VS Code
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- CURRENTLY LEARNING -->
+            <div class="skills-group skills-group--learning fade-in fade-delay">
+              <h3 class="skills-group-title">
+                Currently Learning
+                <span class="learning-badge">In Progress</span>
+              </h3>
+
+              <div class="skills-grid">
+
+                <!-- JavaScript deep-dive -->
+                <div class="skill-category">
+                  <h4 class="skill-category-title">
+                    <i class="ri-javascript-line" aria-hidden="true"></i>
+                    JavaScript
+                  </h4>
+                  <ul class="skill-list" role="list">
+                    <li class="skill-item">
+                      <i class="ri-cpu-line" aria-hidden="true"></i> V8 Engine & JIT
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-stack-line" aria-hidden="true"></i> Call Stack
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-loop-right-line" aria-hidden="true"></i> Event Loop
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-function-line" aria-hidden="true"></i> DOM Manipulation
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Backend roadmap -->
+                <div class="skill-category">
+                  <h4 class="skill-category-title">
+                    <i class="ri-server-line" aria-hidden="true"></i>
+                    Next Up (Roadmap)
+                  </h4>
+                  <ul class="skill-list" role="list">
+                    <li class="skill-item">
+                      <i class="ri-nodejs-line" aria-hidden="true"></i> Node.js
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-database-2-line" aria-hidden="true"></i> Databases
+                    </li>
+                    <li class="skill-item">
+                      <i class="ri-braces-line" aria-hidden="true"></i> REST APIs
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- ── END SKILLS ───────────────────────────────────────────── -->
+
+
+      <!-- ── 4. PROJECTS SECTION ──────────────────────────────────── -->
+      <section id="projects" class="projects section-padding" aria-label="Projects">
+        <div class="container">
+
+          <div class="section-heading fade-in">
+            <span class="section-tag">03 / Projects</span>
+            <h2 class="section-title">Things I've Built</h2>
+          </div>
+
+          <!--
+            Project cards grid.
+            Each card follows the same pattern — easy to copy/paste to add new projects.
+            To add a project: duplicate one <article> block and update the content.
+          -->
+          <div class="projects-grid">
+
+            <!-- ── PROJECT CARD 1: Trainee Feedback Survey ─────────── -->
+            <article class="project-card fade-in" aria-label="Project: Trainee Feedback Survey Form">
+
+              <!-- Project thumbnail / screenshot -->
+              <div class="project-img-wrapper">
+                <img
+                  src="images/project-images/survey-form.jpg"
+                  alt="Screenshot of Trainee Feedback Survey Form project"
+                  class="project-img"
+                  width="600"
+                  height="340"
+                  loading="lazy"
+                />
+                <!-- Overlay shown on hover -->
+                <div class="project-overlay" aria-hidden="true">
+                  <span>View Details</span>
+                </div>
+              </div>
+
+              <div class="project-info">
+
+                <!-- Project title -->
+                <h3 class="project-title">Trainee Feedback Survey Form</h3>
+
+                <!-- Short description -->
+                <p class="project-desc">
+                  A structured HTML/CSS form capturing trainee feedback for the
+                  Turing Tech programme. Built with semantic form elements,
+                  accessible labels, and responsive layout.
+                </p>
+
+                <!-- Technology tags -->
+                <ul class="project-tags" role="list" aria-label="Technologies used">
+                  <li class="tag">HTML5</li>
+                  <li class="tag">CSS3</li>
+                </ul>
+
+                <!-- Links -->
+                <div class="project-links">
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                    aria-label="View Trainee Feedback Survey on GitHub"
+                  >
+                    <i class="ri-github-fill" aria-hidden="true"></i>
+                    GitHub
+                  </a>
+                  <!-- No live demo yet — link is disabled gracefully -->
+                  <span class="project-link project-link--disabled" aria-label="No live demo available">
+                    <i class="ri-eye-line" aria-hidden="true"></i>
+                    No Demo Yet
+                  </span>
+                </div>
+
+              </div>
+            </article>
+            <!-- ── END CARD 1 ──────────────────────────────────────── -->
+
+
+            <!-- ── PROJECT CARD 2: Tailwind Landing Page ─────────── -->
+            <article class="project-card fade-in fade-delay" aria-label="Project: Tailwind CSS Landing Page">
+
+              <div class="project-img-wrapper">
+                <img
+                  src="images/project-images/tailwind-landing.jpg"
+                  alt="Screenshot of Tailwind CSS one-page landing page project"
+                  class="project-img"
+                  width="600"
+                  height="340"
+                  loading="lazy"
+                />
+                <div class="project-overlay" aria-hidden="true">
+                  <span>View Details</span>
+                </div>
+              </div>
+
+              <div class="project-info">
+                <h3 class="project-title">Tailwind CSS Landing Page</h3>
+                <p class="project-desc">
+                  A fully responsive one-page landing page built with utility-first
+                  Tailwind CSS. Demonstrates mobile-first layout, spacing system,
+                  and component patterns.
+                </p>
+                <ul class="project-tags" role="list" aria-label="Technologies used">
+                  <li class="tag">HTML5</li>
+                  <li class="tag">Tailwind CSS</li>
+                </ul>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                    aria-label="View Tailwind Landing Page on GitHub"
+                  >
+                    <i class="ri-github-fill" aria-hidden="true"></i>
+                    GitHub
+                  </a>
+                  <a
+                    href="#"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View live demo of Tailwind Landing Page"
+                  >
+                    <i class="ri-external-link-line" aria-hidden="true"></i>
+                    Live Demo
+                  </a>
+                </div>
+              </div>
+            </article>
+            <!-- ── END CARD 2 ──────────────────────────────────────── -->
+
+
+            <!-- ── PROJECT CARD 3: MamaPutOnline ─────────────────── -->
+            <!--
+              The "project-card--featured" modifier adds a gold accent border
+              to call attention to the currently active project.
+            -->
+            <article class="project-card project-card--featured fade-in" aria-label="Project: MamaPutOnline Food Delivery Website">
+
+              <div class="project-img-wrapper">
+                <img
+                  src="images/project-images/mamaput.jpg"
+                  alt="Screenshot of MamaPutOnline Nigerian food delivery website"
+                  class="project-img"
+                  width="600"
+                  height="340"
+                  loading="lazy"
+                />
+                <div class="project-overlay" aria-hidden="true">
+                  <span>View Details</span>
+                </div>
+                <!-- "Currently Building" badge -->
+                <span class="project-badge" aria-label="Project currently in development">
+                  Currently Building
+                </span>
+              </div>
+
+              <div class="project-info">
+                <h3 class="project-title">MamaPutOnline</h3>
+                <p class="project-desc">
+                  A Nigerian food delivery website featuring a sticky navbar with
+                  hamburger menu, hero section, menu cards, and contact form.
+                  Built section-by-section with heavily commented, educational code.
+                </p>
+                <ul class="project-tags" role="list" aria-label="Technologies used">
+                  <li class="tag">HTML5</li>
+                  <li class="tag">CSS3</li>
+                  <li class="tag">JavaScript</li>
+                </ul>
+                <div class="project-links">
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                    aria-label="View MamaPutOnline on GitHub"
+                  >
+                    <i class="ri-github-fill" aria-hidden="true"></i>
+                    GitHub
+                  </a>
+                  <span class="project-link project-link--disabled" aria-label="Live demo coming soon">
+                    <i class="ri-loader-line" aria-hidden="true"></i>
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            </article>
+            <!-- ── END CARD 3 ──────────────────────────────────────── -->
+
+          </div>
+          <!-- END .projects-grid -->
+
+        </div>
+      </section>
+      <!-- ── END PROJECTS ─────────────────────────────────────────── -->
+
+
+      <!-- ── 5. CONTACT SECTION ───────────────────────────────────── -->
+      <section id="contact" class="contact section-padding" aria-label="Contact me">
+        <div class="container">
+
+          <div class="contact-grid">
+
+            <!-- Left: contact info -->
+            <div class="contact-info fade-in">
+
+              <div class="section-heading fade-in">
+              <span class="section-tag">04 / Contact</span>
+              <h2 class="section-title">Let's Work Together</h2>
+              </div>
+
+              <p class="contact-intro">
+                I'm open to junior developer roles, freelance projects, and
+                collaboration. Drop a message and I'll respond within 24 hours.
+              </p>
+
+              <ul class="contact-details" role="list">
+                <li class="contact-item">
+                  <span class="contact-icon" aria-hidden="true">
+                    <i class="ri-mail-line"></i>
+                  </span>
+                  <div>
+                    <span class="contact-label">Email</span>
+                   
+                    <a href="mailto:petersaint515@gmail.com" class="contact-value">
+                      nnamdi@email.com
+                    </a>
+                  </div>
+                </li>
+                <li class="contact-item">
+                  <span class="contact-icon" aria-hidden="true">
+                    <i class="ri-map-pin-2-line"></i>
+                  </span>
+                  <div>
+                    <span class="contact-label">Location</span>
+                    <span class="contact-value">Enugu, Nigeria</span>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="contact-socials" aria-label="Social media profiles">
+                <a
+                  href="https://github.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-icon-btn"
+                  aria-label="GitHub profile"
+                >
+                  <i class="ri-github-fill" aria-hidden="true"></i>
+                </a>
+                <a
+                  href="https://linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-icon-btn"
+                  aria-label="LinkedIn profile"
+                >
+                  <i class="ri-linkedin-box-fill" aria-hidden="true"></i>
+                </a>
+                <a
+                  href="https://x.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-icon-btn"
+                  aria-label="X / Twitter profile"
+                >
+                  <i class="ri-twitter-x-fill" aria-hidden="true"></i>
+                </a>
+                <a
+                  href="https://youtube.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-icon-btn"
+                  aria-label="YouTube channel"
+                >
+                  <i class="ri-youtube-fill" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Right: contact form -->
+            <!--
+              novalidate disables browser default validation UI — we handle
+              it ourselves in JavaScript for a better user experience.
+            -->
+            <form
+              class="contact-form fade-in fade-delay"
+              id="contact-form"
+              novalidate
+              aria-label="Contact form"
+            >
+
+              <!-- Name field -->
+              <div class="form-group">
+                <label for="name" class="form-label">Full Name <span aria-hidden="true">*</span></label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-input"
+                  placeholder="Your full name"
+                  required
+                  autocomplete="name"
+                  aria-required="true"
+                  aria-describedby="name-error"
+                />
+                <!-- Error message hidden by default, shown by JS on invalid submission -->
+                <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Email field -->
+              <div class="form-group">
+                <label for="email" class="form-label">Email Address <span aria-hidden="true">*</span></label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="your@email.com"
+                  required
+                  autocomplete="email"
+                  aria-required="true"
+                  aria-describedby="email-error"
+                />
+                <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Subject field -->
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject <span aria-hidden="true">*</span></label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  class="form-input"
+                  placeholder="What's this about?"
+                  required
+                  aria-required="true"
+                  aria-describedby="subject-error"
+                />
+                <span class="form-error" id="subject-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Message textarea -->
+              <div class="form-group">
+                <label for="message" class="form-label">Message <span aria-hidden="true">*</span></label>
+                <textarea
+                  id="message"
+                  name="message"
+                  class="form-input form-textarea"
+                  placeholder="Tell me about your project or opportunity..."
+                  required
+                  rows="5"
+                  aria-required="true"
+                  aria-describedby="message-error"
+                ></textarea>
+                <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+                <span class="btn-text">Send Message</span>
+                <i class="ri-send-plane-fill" aria-hidden="true"></i>
+              </button>
+
+              <!-- Success message — hidden by default, shown by JS after submit -->
+              <div class="form-success" id="form-success" role="alert" aria-live="polite" hidden>
+                <i class="ri-checkbox-circle-line" aria-hidden="true"></i>
+                Message sent! I'll get back to you soon.
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </section>
+      <!-- ── END CONTACT ──────────────────────────────────────────── -->
+
+    </main>
+    <!-- END <main> -->
+
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="footer" role="contentinfo">
+      <div class="container footer-inner">
+
+        <!-- Left: brand -->
+        <p class="footer-brand">
+          <span class="logo-bracket">&lt;</span>Nnamdi<span class="logo-bracket">/&gt;</span>
+        </p>
+
+        <!-- Centre: copyright -->
+        <p class="footer-copy">
+          &copy; <span id="footer-year"></span> Nnamdi. Crafted with intent.
+        </p>
+
+        <!-- Right: social links -->
+        <div class="footer-socials" aria-label="Social media links in footer">
+          <a href="https://github.com/"   target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="ri-github-fill"         aria-hidden="true"></i></a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ri-linkedin-box-fill" aria-hidden="true"></i></a>
+          <a href="https://x.com/"        target="_blank" rel="noopener noreferrer" aria-label="X/Twitter"><i class="ri-twitter-x-fill"  aria-hidden="true"></i></a>
+          <a href="mailto:nnamdi@email.com" aria-label="Send email"><i class="ri-mail-line"              aria-hidden="true"></i></a>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- ============================================================
+         BACK-TO-TOP BUTTON
+         Appears after scrolling 400px down.
+         JavaScript controls visibility and smooth scroll.
+    ============================================================ -->
+    <button
+      class="back-to-top"
+      id="back-to-top"
+      aria-label="Scroll back to top"
+      hidden
+    >
+      <i class="ri-arrow-up-line" aria-hidden="true"></i>
+    </button>
+
+    <!-- Our JavaScript file — placed at the end of body so the DOM
+         is fully loaded before the script runs. -->
+    <script src="script.js"></script>
+
+  </body>
+</html>

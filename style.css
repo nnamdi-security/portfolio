@@ -1,0 +1,1445 @@
+/* ================================================================
+   NNAMDI — PORTFOLIO STYLESHEET
+   style.css
+   ================================================================
+   TABLE OF CONTENTS
+   ---------------------------------------------------------
+   1.  CSS VARIABLES (Design Tokens)
+   2.  RESET & BASE
+   3.  UTILITY CLASSES
+   4.  TYPOGRAPHY HELPERS
+   5.  SCROLL FADE-IN ANIMATION SYSTEM
+   6.  NAVBAR
+   7.  HERO SECTION
+   8.  ABOUT SECTION
+   9.  SKILLS SECTION
+   10. PROJECTS SECTION
+   11. CONTACT SECTION
+   12. FOOTER
+   13. BACK-TO-TOP BUTTON
+   14. RESPONSIVE BREAKPOINTS
+   ================================================================ */
+
+
+/* ================================================================
+   1. CSS VARIABLES — Design Tokens
+   ----------------------------------------------------------------
+   CSS variables (custom properties) let us define values ONCE and
+   reuse them everywhere. If we want to change the accent colour,
+   we only update ONE line here instead of hunting through the file.
+   ================================================================ */
+:root {
+  /* --- Color Palette --- */
+  --clr-bg:           #0d0d0d;   /* Main background — near-black       */
+  --clr-bg-2:         #141414;   /* Slightly lighter surface            */
+  --clr-bg-3:         #1c1c1c;   /* Card / panel backgrounds            */
+  --clr-border:       #2a2a2a;   /* Subtle divider lines                */
+  --clr-accent:       #e8c547;   /* Gold accent — primary highlight     */
+  --clr-accent-dim:   #b89930;   /* Muted gold for secondary uses       */
+  --clr-text:         #e4e4e4;   /* Primary body text                   */
+  --clr-text-muted:   #888888;   /* Secondary / supporting text         */
+  --clr-text-faint:   #444444;   /* Barely-there text (decorative)      */
+  --clr-white:        #ffffff;
+  --clr-error:        #e05555;   /* Form validation error colour        */
+  --clr-success:      #4caf50;   /* Form success message                */
+
+  /* --- Typography --- */
+  --font-display:  'Bebas Neue', sans-serif;   /* Large headings       */
+  --font-body:     'Lato', sans-serif;          /* All body text        */
+  --font-mono:     'JetBrains Mono', monospace; /* Code / labels        */
+
+  /* --- Font Sizes (mobile-first scale) --- */
+  --fs-xs:   0.75rem;   /*  12px */
+  --fs-sm:   0.875rem;  /*  14px */
+  --fs-base: 1rem;      /*  16px */
+  --fs-md:   1.125rem;  /*  18px */
+  --fs-lg:   1.25rem;   /*  20px */
+  --fs-xl:   1.5rem;    /*  24px */
+  --fs-2xl:  2rem;      /*  32px */
+  --fs-3xl:  2.5rem;    /*  40px */
+  --fs-4xl:  3rem;      /*  48px */
+  --fs-hero: 5rem;      /*  80px — hero name */
+
+  /* --- Spacing Scale --- */
+  --sp-1:  0.25rem;   /*  4px  */
+  --sp-2:  0.5rem;    /*  8px  */
+  --sp-3:  0.75rem;   /* 12px  */
+  --sp-4:  1rem;      /* 16px  */
+  --sp-6:  1.5rem;    /* 24px  */
+  --sp-8:  2rem;      /* 32px  */
+  --sp-10: 2.5rem;    /* 40px  */
+  --sp-12: 3rem;      /* 48px  */
+  --sp-16: 4rem;      /* 64px  */
+  --sp-20: 5rem;      /* 80px  */
+  --sp-24: 6rem;      /* 96px  */
+
+  /* --- Layout --- */
+  --max-width:    1100px;    /* Maximum content width                  */
+  --nav-height:   68px;      /* Navbar height — used to offset anchors */
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    16px;
+
+  /* --- Transitions --- */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.3s ease;
+  --transition-slow:   0.5s ease;
+
+  /* --- Shadows --- */
+  --shadow-sm:   0 2px 8px  rgba(0, 0, 0, 0.4);
+  --shadow-md:   0 6px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px   rgba(232, 197, 71, 0.12);
+}
+
+
+/* ================================================================
+   2. RESET & BASE STYLES
+   ----------------------------------------------------------------
+   A minimal reset removes inconsistent browser default styles so
+   we start from a predictable baseline.
+   ================================================================ */
+
+/* box-sizing: border-box means padding and borders are INCLUDED
+   inside the element's declared width — much easier to reason about. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* scroll-behavior: smooth makes anchor links animate rather than jump */
+  scroll-behavior: smooth;
+  /* Prevent layout shift when scrollbar appears/disappears */
+  scrollbar-gutter: stable;
+  /* Improve font rendering on macOS */
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.7;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+}
+
+/* Accessible focus ring — never remove :focus entirely */
+:focus-visible {
+  outline: 2px solid var(--clr-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove list styles for <ul role="list"> — keeps screen reader semantics */
+ul[role="list"] {
+  list-style: none;
+}
+
+img {
+  display: block;       /* Removes phantom bottom gap */
+  max-width: 100%;      /* Prevents images from overflowing their container */
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Offset anchor targets so they don't hide behind the sticky navbar */
+[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+
+/* ================================================================
+   3. UTILITY CLASSES
+   ================================================================ */
+
+/* Centre content and cap width */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;        /* shorthand for margin-left + margin-right */
+  padding-inline: var(--sp-6);
+}
+
+/* Consistent vertical breathing room for each section */
+.section-padding {
+  padding-block: var(--sp-20);  /* shorthand for padding-top + padding-bottom */
+}
+
+
+/* ================================================================
+   4. TYPOGRAPHY HELPERS
+   ================================================================ */
+
+/* Section tag — small mono label above each section title */
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-4);
+}
+
+/* Section main title */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  letter-spacing: 0.03em;
+  color: var(--clr-white);
+  line-height: 1.1;
+}
+
+.section-heading {
+  margin-bottom: var(--sp-12);
+}
+
+/* Code-style brackets used in logo */
+.logo-bracket {
+  color: var(--clr-accent);
+  font-family: var(--font-mono);
+}
+
+
+/* ================================================================
+   5. SCROLL FADE-IN ANIMATION SYSTEM
+   ----------------------------------------------------------------
+   Elements with class "fade-in" start invisible (opacity: 0) and
+   shifted down slightly (translateY: 30px).
+   When JavaScript's Intersection Observer sees them enter the
+   viewport, it adds the "visible" class which transitions them
+   to their final state.
+   ================================================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Optional delay — staggers paired elements for a polished effect */
+.fade-delay {
+  transition-delay: 0.18s;
+}
+
+/* Final state — added by JavaScript */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Immediately show elements for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+/* ================================================================
+   6. NAVBAR
+   ================================================================ */
+.navbar {
+  position: fixed;         /* Sticks to top during scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  z-index: 100;            /* Stays above all other content */
+  background-color: rgba(13, 13, 13, 0.92);
+  /* backdrop-filter creates the frosted-glass blur effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--clr-border);
+  transition: background-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* Extra shadow added by JavaScript when user has scrolled down */
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+}
+
+.nav-container {
+  max-width: var(--max-width);
+  height: 100%;
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--clr-white);
+  transition: color var(--transition-fast);
+  flex-shrink: 0;    /* Prevent logo from shrinking on small screens */
+}
+
+.nav-logo:hover {
+  color: var(--clr-accent);
+}
+
+/* Nav menu — on mobile it's a full-screen dropdown */
+.nav-menu {
+  display: none;       /* Hidden by default on mobile */
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-8);
+  list-style: none;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  color: var(--clr-text-muted);
+  transition: color var(--transition-fast);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+/* Animated underline on hover using ::after pseudo-element */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--clr-accent);
+  transition: width var(--transition-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--clr-white);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Resume button — stands out in the nav */
+.nav-resume-btn {
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--clr-accent);
+  border-radius: var(--radius-sm);
+  color: var(--clr-accent) !important;
+  transition: background-color var(--transition-fast), color var(--transition-fast) !important;
+}
+
+.nav-resume-btn:hover {
+  background-color: var(--clr-accent);
+  color: var(--clr-bg) !important;
+}
+
+.nav-resume-btn::after {
+  display: none;    /* No underline on the button-style link */
+}
+
+/* Hamburger button — mobile only */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ham-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--clr-text);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+  transform-origin: center;
+}
+
+/* Animate hamburger into X when open */
+.hamburger.open .ham-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open .ham-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.open .ham-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ================================================================
+   7. HERO SECTION
+   ================================================================ */
+.hero {
+  min-height: 100vh;     /* Full viewport height */
+  padding-top: var(--nav-height);  /* Push content below sticky navbar */
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: var(--clr-bg);
+  /* Subtle diagonal texture using repeating-linear-gradient */
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 60px,
+      rgba(232, 197, 71, 0.018) 60px,
+      rgba(232, 197, 71, 0.018) 61px
+    );
+  overflow: hidden;
+}
+
+/* Large decorative text in background — purely visual */
+.hero::before {
+  content: 'DEV';
+  position: absolute;
+  right: -2rem;
+  bottom: -3rem;
+  font-family: var(--font-display);
+  font-size: 22vw;
+  color: var(--clr-text-faint);
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  line-height: 1;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--sp-6);
+  display: flex;
+  flex-direction: column;   /* Stack on mobile */
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+/* Text block */
+.hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-greeting {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-2);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, var(--fs-hero));
+  letter-spacing: 0.04em;
+  color: var(--clr-white);
+  line-height: 1;
+  margin-bottom: var(--sp-4);
+}
+
+.hero-role {
+  font-size: var(--fs-lg);
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-6);
+  min-height: 1.7em;   /* Prevents layout jump as text changes */
+}
+
+/* The animated word in the role line */
+#role-text {
+  color: var(--clr-accent);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  /* The blinking cursor effect */
+  border-right: 2px solid var(--clr-accent);
+  padding-right: 3px;
+  animation: blink-cursor 0.8s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  from, to { border-color: transparent; }
+  50%       { border-color: var(--clr-accent); }
+}
+
+.hero-intro {
+  font-size: var(--fs-md);
+  color: var(--clr-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--sp-8);
+  max-width: 500px;
+}
+
+/* CTA button group */
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+/* Social icons row */
+.hero-socials {
+  display: flex;
+  gap: var(--sp-6);
+}
+
+.hero-socials a {
+  font-size: var(--fs-xl);
+  color: var(--clr-text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero-socials a:hover {
+  color: var(--clr-accent);
+  transform: translateY(-3px);
+}
+
+/* Profile photo block */
+.hero-photo {
+  flex-shrink: 0;
+}
+
+/* Decorative frame around the photo */
+.photo-frame {
+  position: relative;
+  width: clamp(220px, 36vw, 340px);
+  height: clamp(220px, 36vw, 340px);
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* Crop to fill, keeping aspect ratio */
+  border-radius: var(--radius-lg);
+  display: block;
+  background-color: var(--clr-bg-3);   /* Visible while image loads */
+  /* Diagonal split: subtle dual-colour gradient over image */
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--clr-border);
+}
+
+/* Corner accent lines — the four decorative L-shapes */
+.frame-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--clr-accent);
+  border-style: solid;
+}
+
+.frame-corner.top-left  { top: -6px;  left: -6px;  border-width: 2px 0 0 2px; }
+.frame-corner.top-right { top: -6px;  right: -6px; border-width: 2px 2px 0 0; }
+.frame-corner.bot-left  { bottom: -6px; left: -6px; border-width: 0 0 2px 2px; }
+.frame-corner.bot-right { bottom: -6px; right: -6px; border-width: 0 2px 2px 0; }
+
+/* Scroll down hint */
+.scroll-hint {
+  position: absolute;
+  bottom: var(--sp-8);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--fs-xl);
+  color: var(--clr-text-muted);
+  animation: bounce 2s infinite;
+  transition: color var(--transition-fast);
+  z-index: 1;
+}
+
+.scroll-hint:hover {
+  color: var(--clr-accent);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+
+/* ================================================================
+   BUTTONS — reusable across all sections
+   ================================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-8);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Solid gold button */
+.btn-primary {
+  background-color: var(--clr-accent);
+  color: var(--clr-bg);
+}
+
+.btn-primary:hover {
+  background-color: var(--clr-white);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Outline-only button */
+.btn-outline {
+  background-color: transparent;
+  color: var(--clr-text);
+  border: 1px solid var(--clr-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--clr-accent);
+  color: var(--clr-accent);
+}
+
+/* Full-width button variant for forms */
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ================================================================
+   8. ABOUT SECTION
+   ================================================================ */
+.about {
+  background-color: var(--clr-bg-2);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* Single column on mobile */
+  gap: var(--sp-12);
+  align-items: start;
+}
+
+.about-para {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-md);
+  line-height: 1.9;
+  margin-bottom: var(--sp-4);
+}
+
+.about-para strong {
+  color: var(--clr-text);
+  font-weight: 700;
+}
+
+/* Fact pills row */
+.about-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+  list-style: none;
+}
+
+.fact-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: 99px;
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  white-space: nowrap;
+}
+
+.fact-pill i {
+  color: var(--clr-accent);
+}
+
+/* Stats 2×2 grid */
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+.stat-card {
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-6);
+  text-align: center;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.stat-card:hover {
+  border-color: var(--clr-accent);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Accent variant — bottom-right card has gold background */
+.stat-card--accent {
+  background-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+
+.stat-card--accent .stat-number,
+.stat-card--accent .stat-label {
+  color: var(--clr-bg);
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  color: var(--clr-accent);
+  line-height: 1;
+  margin-bottom: var(--sp-2);
+}
+
+.stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+
+/* ================================================================
+   9. SKILLS SECTION
+   ================================================================ */
+.skills {
+  background-color: var(--clr-bg);
+}
+
+.skills-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
+}
+
+.skills-group {
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+}
+
+/* Learning group gets a subtle gold tint on its border */
+.skills-group--learning {
+  border-color: rgba(232, 197, 71, 0.25);
+}
+
+.skills-group-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-white);
+  margin-bottom: var(--sp-6);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+/* "In Progress" badge */
+.learning-badge {
+  font-size: var(--fs-xs);
+  padding: 2px var(--sp-3);
+  background-color: rgba(232, 197, 71, 0.15);
+  border: 1px solid rgba(232, 197, 71, 0.4);
+  border-radius: 99px;
+  color: var(--clr-accent);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+/* Grid of skill categories */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* Mobile: one column */
+  gap: var(--sp-6);
+}
+
+.skill-category {
+  padding: var(--sp-6);
+  background-color: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base);
+}
+
+.skill-category:hover {
+  border-color: var(--clr-accent);
+}
+
+.skill-category-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  margin-bottom: var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  list-style: none;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.skill-item:hover {
+  color: var(--clr-text);
+}
+
+.skill-item i {
+  color: var(--clr-accent);
+  font-size: var(--fs-base);
+  flex-shrink: 0;
+}
+
+
+/* ================================================================
+   10. PROJECTS SECTION
+   ================================================================ */
+.projects {
+  background-color: var(--clr-bg-2);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* Mobile: one column */
+  gap: var(--sp-8);
+}
+
+/* Individual project card */
+.project-card {
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;   /* Keeps image corners rounded */
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--clr-accent);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+/* Featured variant — e.g. MamaPutOnline */
+.project-card--featured {
+  border-color: rgba(232, 197, 71, 0.3);
+}
+
+/* Image wrapper — fixed aspect ratio */
+.project-img-wrapper {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--clr-bg);
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.04);
+}
+
+/* Hover overlay */
+.project-overlay {
+  position: absolute;
+  inset: 0;    /* shorthand for top:0; right:0; bottom:0; left:0 */
+  background: rgba(13, 13, 13, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.project-overlay span {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+  border: 1px solid var(--clr-accent);
+  padding: var(--sp-2) var(--sp-6);
+  border-radius: var(--radius-sm);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+/* "Currently Building" badge */
+.project-badge {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: var(--clr-accent);
+  color: var(--clr-bg);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-sm);
+  z-index: 2;
+}
+
+/* Card text content */
+.project-info {
+  padding: var(--sp-6);
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  letter-spacing: 0.03em;
+  color: var(--clr-white);
+  margin-bottom: var(--sp-3);
+}
+
+.project-desc {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--sp-4);
+}
+
+/* Tech tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  list-style: none;
+  margin-bottom: var(--sp-6);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px var(--sp-3);
+  background-color: rgba(232, 197, 71, 0.1);
+  border: 1px solid rgba(232, 197, 71, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--clr-accent);
+}
+
+/* Card link buttons */
+.project-links {
+  display: flex;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  padding: var(--sp-2) var(--sp-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.project-link:hover {
+  color: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+
+/* Disabled state — no live demo yet */
+.project-link--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+/* ================================================================
+   11. CONTACT SECTION
+   ================================================================ */
+.contact {
+  background-color: var(--clr-bg);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* Mobile: stacked */
+  gap: var(--sp-12);
+  align-items: start;
+}
+
+.contact-intro {
+  font-size: var(--fs-md);
+  color: var(--clr-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--sp-8);
+}
+
+/* Contact detail rows */
+.contact-details {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-lg);
+  color: var(--clr-accent);
+}
+
+.contact-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+  margin-bottom: 2px;
+}
+
+.contact-value {
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  transition: color var(--transition-fast);
+}
+
+a.contact-value:hover {
+  color: var(--clr-accent);
+}
+
+/* Social icon buttons in contact section */
+.contact-socials {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.social-icon-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-xl);
+  color: var(--clr-text-muted);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.social-icon-btn:hover {
+  color: var(--clr-accent);
+  border-color: var(--clr-accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ── Contact Form ── */
+.contact-form {
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+
+.form-label span {
+  color: var(--clr-accent);
+}
+
+.form-input {
+  background-color: var(--clr-bg-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--clr-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+/* Remove default browser outline and use our own */
+.form-input:focus {
+  outline: none;
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(232, 197, 71, 0.12);
+}
+
+/* Placeholder text colour */
+.form-input::placeholder {
+  color: var(--clr-text-faint);
+}
+
+.form-textarea {
+  resize: vertical;   /* User can resize vertically, not horizontally */
+  min-height: 130px;
+}
+
+/* Error state — applied by JavaScript */
+.form-input.error {
+  border-color: var(--clr-error);
+}
+
+/* Inline error message */
+.form-error {
+  font-size: var(--fs-xs);
+  color: var(--clr-error);
+  font-family: var(--font-mono);
+  min-height: 1em;   /* Reserve space so layout doesn't jump */
+}
+
+/* Success message */
+.form-success {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--clr-success);
+  font-family: var(--font-mono);
+}
+
+/* hidden attribute CSS support (some browsers need this) */
+[hidden] {
+  display: none !important;
+}
+
+
+/* ================================================================
+   12. FOOTER
+   ================================================================ */
+.footer {
+  background-color: var(--clr-bg-2);
+  border-top: 1px solid var(--clr-border);
+  padding-block: var(--sp-8);
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--clr-white);
+}
+
+.footer-copy {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  order: 3;    /* Pushes copyright below socials on mobile */
+}
+
+.footer-socials {
+  display: flex;
+  gap: var(--sp-4);
+}
+
+.footer-socials a {
+  font-size: var(--fs-xl);
+  color: var(--clr-text-muted);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-socials a:hover {
+  color: var(--clr-accent);
+  transform: translateY(-3px);
+}
+
+
+/* ================================================================
+   13. BACK-TO-TOP BUTTON
+   ================================================================ */
+.back-to-top {
+  position: fixed;
+  bottom: var(--sp-8);
+  right: var(--sp-8);
+  width: 46px;
+  height: 46px;
+  background-color: var(--clr-accent);
+  color: var(--clr-bg);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-xl);
+  z-index: 99;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base),
+    background-color var(--transition-fast);
+  /* hidden attribute handled by JS — this provides the animation */
+  pointer-events: none;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background-color: var(--clr-white);
+}
+
+
+/* ================================================================
+   14. RESPONSIVE BREAKPOINTS
+   ----------------------------------------------------------------
+   We start mobile-first (single column, smaller text) and then
+   progressively enhance for wider screens.
+   ================================================================ */
+
+/* ── Small tablets and up: 600px ── */
+@media (min-width: 600px) {
+
+  /* Nav: show desktop links, hide hamburger */
+  .hamburger {
+    display: none;
+  }
+
+  .nav-menu {
+    display: flex;     /* Show the nav links */
+    align-items: center;
+  }
+
+  /* About: two-column grid */
+  .about-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  /* Skills: two categories side by side */
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Projects: two-column grid */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Contact: two-column grid */
+  .contact-grid {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: ;
+  }
+
+  /* Hero: side by side */
+  .hero-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Footer: row layout */
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .footer-copy {
+    order: 0;
+  }
+}
+
+/* ── Large screens: 900px ── */
+@media (min-width: 900px) {
+
+  /* Projects: three columns */
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .section-title {
+    font-size: var(--fs-4xl);
+  }
+
+  /* More padding on larger screens */
+  .section-padding {
+    padding-block: var(--sp-24);
+  }
+}
+
+/* ── Mobile nav overlay: shown when hamburger is open ── */
+@media (max-width: 599px) {
+
+  /* Full-screen overlay for mobile nav */
+  .nav-menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--nav-height));
+    background-color: var(--clr-bg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    /* Hidden by default — JS toggles the .open class */
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+  }
+
+  /* Open state — JS adds .open class to nav-menu */
+  .nav-menu.open {
+    display: flex;
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-8);
+  }
+
+  .nav-link {
+    font-size: var(--fs-xl);
+    letter-spacing: 0.1em;
+  }
+
+  /* Hero: reduce large display font on small screens */
+  .hero-name {
+    font-size: clamp(3.5rem, 18vw, 5rem);
+  }
+}
