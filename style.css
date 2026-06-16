@@ -1290,7 +1290,7 @@ a.contact-value:hover {
    ================================================================ */
 .back-to-top {
   position: fixed;
-  bottom: var(--sp-8);
+  bottom: 6rem;
   right: var(--sp-8);
   width: 46px;
   height: 46px;
