@@ -8,7 +8,7 @@ Live site: [nnamdi-security.github.io/portfolio](https://mynameisnnamdi.netlify.
 
 ## About This Project
 
-This portfolio was built as part of my #BiP60 Build in Public challenge — 60 days of learning and building in public as a trainee in the Enugu State Government technology programme run in partnership with Turing Tech LLC.
+This portfolio was built as part of my Full stack and AI development class work as a trainee in the Enugu State Government technology programme run in partnership with Turing Tech LLC.
 
 The goal was simple: build something real that represents where I am right now, and grow it as I grow.
 
@@ -89,7 +89,7 @@ Based in Enugu, Nigeria
 
 ## Acknowledgements
 
-Built during the Enugu State Government technology training programme in partnership with [Turing Tech LLC](https://academy.turingtechllc.org).
+Built during the Enugu State Government technology training programme in partnership with [Turing Tech LLC](https://turingtechllc.org).
 
 ---
 

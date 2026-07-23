@@ -211,6 +211,15 @@ button {
   margin-bottom: var(--sp-12);
 }
 
+/* Optional supporting line under a section title */
+.section-subtitle {
+  font-size: var(--fs-base);
+  color: var(--clr-text-muted);
+  max-width: 60ch;
+  margin-top: var(--sp-4);
+  line-height: 1.7;
+}
+
 /* Code-style brackets used in logo */
 .logo-bracket {
   color: var(--clr-accent);
@@ -1046,6 +1055,75 @@ button {
 
 
 /* ================================================================
+   10.5 VIDEO CARDS SECTION
+   ----------------------------------------------------------------
+   Same visual language as .project-card, swapping the static image
+   for a native <video> element. Each card is a <=60s HeyGen-produced
+   walkthrough of one AI/full-stack project.
+   ================================================================ */
+.video-showcase {
+  background-color: var(--clr-bg);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* Mobile: one column */
+  gap: var(--sp-8);
+}
+
+.video-card {
+  background-color: var(--clr-bg-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.video-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--clr-accent);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+/* Video wrapper — fixed 16:9 aspect ratio, matches project images */
+.video-frame-wrapper {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--clr-bg);
+}
+
+.video-frame {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background-color: #000;
+}
+
+/* "<= 60s" duration badge, same treatment as .project-badge */
+.video-duration-badge {
+  position: absolute;
+  top: var(--sp-4);
+  left: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: var(--clr-accent);
+  color: var(--clr-bg);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-sm);
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+/* ================================================================
    11. CONTACT SECTION
    ================================================================ */
 .contact {
@@ -1358,6 +1436,11 @@ a.contact-value:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Video Cards: two-column grid */
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   /* Contact: two-column grid */
   .contact-grid {
     grid-template-columns: 1fr 1.2fr;
@@ -1388,6 +1471,12 @@ a.contact-value:hover {
   /* Projects: three columns */
   .projects-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Video Cards: two columns (kept wider than 3-up project cards so
+     each video frame has room to breathe) */
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .section-title {
