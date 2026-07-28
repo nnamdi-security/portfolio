@@ -192,84 +192,231 @@
 
       <!-- ── 2. ABOUT SECTION ─────────────────────────────────────── -->
       <section id="about" class="about section-padding" aria-label="About me">
-        <div class="container">
+  <div class="container">
 
-          <!-- Section heading — reused pattern across all sections -->
-          <div class="section-heading fade-in">
-            <span class="section-tag">01 / About</span>
-            <h2 class="section-title">The Story So Far</h2>
-          </div>
+    <!-- Section heading — reused pattern across all sections -->
+    <div class="section-heading fade-in">
+      <span class="section-tag">01 / About</span>
+      <h2 class="section-title">The Story So Far</h2>
+    </div>
 
-          <div class="about-grid">
+    <div class="about-grid">
 
-            <!-- Left: text blocks -->
-            <div class="about-text fade-in">
-              <p class="about-para">
-                I'm a full-stack developer in training, currently enrolled in a
-                government-backed technology programme in Enugu, Nigeria, run in
-                partnership with <strong>Turing Tech LLC</strong>. My programme
-                covers HTML, CSS, Tailwind CSS, JavaScript, version control, and
-                AI data annotation.
+      <!-- Left: text blocks -->
+      <div class="about-text fade-in">
+        <p class="about-para">
+          My foundation is cybersecurity: network security, vulnerability
+          assessment &amp; exploitation, web application &amp; endpoint
+          security, cloud security, IAM, security monitoring &amp;
+          incident response, and Linux. I know how systems break — and
+          how to harden them before they do.
+        </p>
+        <p class="about-para">
+          Now I'm expanding that foundation into full-stack development
+          and AI/LLM engineering, because the future belongs to
+          engineers who can build fast and build secure. I'm learning to
+          ship products while weaving security into every layer — from
+          the API to the model to the cloud infrastructure.
+        </p>
+
+        <!-- Quick-fact pills -->
+        <ul class="about-facts" role="list" aria-label="Quick facts">
+          <li class="fact-pill">
+            <i class="ri-map-pin-line" aria-hidden="true"></i>
+            Enugu, Nigeria
+          </li>
+          <li class="fact-pill">
+            <i class="ri-code-s-slash-line" aria-hidden="true"></i>
+            Full-Stack in Training
+          </li>
+          <li class="fact-pill">
+            <i class="ri-shield-keyhole-line" aria-hidden="true"></i>
+            Cybersecurity Background
+          </li>
+          <li class="fact-pill">
+            <i class="ri-building-line" aria-hidden="true"></i>
+            Turing Tech LLC
+          </li>
+          <li class="fact-pill">
+            <i class="ri-megaphone-line" aria-hidden="true"></i>
+            #BiP60 Build in Public
+          </li>
+        </ul>
+
+        <!-- ── Collapsible: Cybersecurity Projects ─────────────────── -->
+        <details class="about-more">
+          <summary>
+            <span>My Cybersecurity Projects</span>
+            <i class="ri-arrow-down-s-line about-more-icon" aria-hidden="true"></i>
+          </summary>
+
+          <div class="about-more-content">
+
+            <div class="cyber-project">
+              <h5 class="cyber-project-title">Cloud Privilege Escalation Simulation — AWS IAM</h5>
+              <p class="cyber-project-desc">
+                Simulated a real-world AWS IAM privilege-escalation attack end-to-end: starting
+                from an overly permissive <code>AdministratorAccess</code> policy, achieved full
+                account takeover via a backdoor admin user in under 3 minutes, then closed the
+                gap with a custom least-privilege policy — verified by confirming 6 previously
+                allowed escalation actions were denied afterward.
               </p>
-              <p class="about-para">
-                Before code, I had three laptops and a lot of time to figure out
-                what I actually wanted to build. That journey taught me patience,
-                resourcefulness, and the habit of pushing through problems until
-                something finally works. Those traits show up in every project
-                I touch.
-              </p>
-              <p class="about-para">
-                My goal is to grow from a solid JavaScript foundation toward
-                full-stack proficiency — and eventually into lower-level
-                programming. Right now I'm documenting that journey publicly
-                through my <strong>#BiP60</strong> Build in Public challenge.
-              </p>
-
-              <!-- Quick-fact pills -->
-              <ul class="about-facts" role="list" aria-label="Quick facts">
-                <li class="fact-pill">
-                  <i class="ri-map-pin-line" aria-hidden="true"></i>
-                  Enugu, Nigeria
-                </li>
-                <li class="fact-pill">
-                  <i class="ri-code-s-slash-line" aria-hidden="true"></i>
-                  Full-Stack in Training
-                </li>
-                <li class="fact-pill">
-                  <i class="ri-building-line" aria-hidden="true"></i>
-                  Turing Tech LLC
-                </li>
-                <li class="fact-pill">
-                  <i class="ri-megaphone-line" aria-hidden="true"></i>
-                  #BiP60 Build in Public
-                </li>
+              <ul class="project-tags" role="list" aria-label="Technologies used">
+                <li class="tag">AWS IAM</li>
+                <li class="tag">Cloud Security</li>
+                <li class="tag">Least Privilege</li>
+                <li class="tag">AWS CLI</li>
               </ul>
+              <a
+                href="https://github.com/nnamdi-security/cybersecurity-portfolio/tree/main/projects/cloud-iam-privilege-escalation"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                aria-label="View Cloud Privilege Escalation Simulation repo on GitHub"
+              >
+                <i class="ri-github-fill" aria-hidden="true"></i>
+                View Repo
+              </a>
             </div>
 
-            <!-- Right: decorative stat cards -->
-            <div class="about-stats fade-in fade-delay">
-              <div class="stat-card">
-                <span class="stat-number">3+</span>
-                <span class="stat-label">Projects Completed</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-number">60</span>
-                <span class="stat-label">Day Build Challenge</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Platforms Publishing</span>
-              </div>
-              <div class="stat-card stat-card--accent">
-                <span class="stat-number">∞</span>
-                <span class="stat-label">Commits Ahead</span>
-              </div>
+            <div class="cyber-project">
+              <h5 class="cyber-project-title">Multi-Tier Cloud Deployment: PrestaShop on AWS</h5>
+              <p class="cyber-project-desc">
+                Deployed a live e-commerce platform on a segmented two-tier AWS architecture —
+                separate EC2 instances for the app and database, with security groups
+                restricting DB access to the app server only. Real troubleshooting included
+                fixing an SSH key-permission block, a security-group misconfiguration causing
+                DB connection timeouts, and an SSL redirect loop resolved via direct database
+                remediation.
+              </p>
+              <ul class="project-tags" role="list" aria-label="Technologies used">
+                <li class="tag">AWS EC2</li>
+                <li class="tag">Security Groups</li>
+                <li class="tag">Linux</li>
+                <li class="tag">Apache</li>
+                <li class="tag">MySQL</li>
+                <li class="tag">PrestaShop</li>
+              </ul>
+              <a
+                href="https://github.com/nnamdi-security/cybersecurity-portfolio/tree/main/projects/secure-prestashop-aws-deployment"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                aria-label="View Multi-Tier Cloud Deployment repo on GitHub"
+              >
+                <i class="ri-github-fill" aria-hidden="true"></i>
+                View Repo
+              </a>
             </div>
 
+            <div class="cyber-project">
+              <h5 class="cyber-project-title">Enterprise Security Simulation Lab</h5>
+              <p class="cyber-project-desc">
+                Built a full offense/defense/monitoring environment in Docker on Kali Linux: a
+                vulnerable target app (DVWA) and honeypot behind a ModSecurity WAF with the
+                OWASP Core Rule Set, plus an ELK stack for monitoring. Ran real attacks (Nmap
+                recon, Metasploit brute-force, manual SQL injection and XSS), confirmed the WAF
+                blocked them with HTTP 403, and visualized 136 indexed security events across a
+                4-panel Kibana dashboard.
+              </p>
+              <ul class="project-tags" role="list" aria-label="Technologies used">
+                <li class="tag">Docker</li>
+                <li class="tag">ELK Stack</li>
+                <li class="tag">ModSecurity</li>
+                <li class="tag">OWASP CRS</li>
+                <li class="tag">Nmap</li>
+                <li class="tag">Metasploit</li>
+              </ul>
+              <a
+                href="https://github.com/nnamdi-security/cybersecurity-portfolio/tree/main/projects/security-sim-lab"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                aria-label="View Enterprise Security Simulation Lab repo on GitHub"
+              >
+                <i class="ri-github-fill" aria-hidden="true"></i>
+                View Repo
+              </a>
+            </div>
+
+            <div class="cyber-project">
+              <h5 class="cyber-project-title">PrestaShop Security Assessment: Complete Guide</h5>
+              <p class="cyber-project-desc">
+                A measured before/after hardening project on PrestaShop 8.1 — tested all 10
+                OWASP Top 10 categories using Burp Suite, OWASP ZAP, SQLMap, and Nikto. Result:
+                an 89% overall attack-blocking rate (25 of 28 simulated attacks), critical
+                vulnerabilities cut from 8 to 0, and high-risk vulnerabilities cut from 12 to 1.
+              </p>
+              <ul class="project-tags" role="list" aria-label="Technologies used">
+                <li class="tag">OWASP Top 10</li>
+                <li class="tag">Burp Suite</li>
+                <li class="tag">OWASP ZAP</li>
+                <li class="tag">WAF</li>
+                <li class="tag">PrestaShop</li>
+                <li class="tag">Docker</li>
+              </ul>
+              <a
+                href="https://github.com/nnamdi-security/cybersecurity-portfolio/tree/main/projects/web-application-security-project"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-link"
+                aria-label="View PrestaShop Security Assessment repo on GitHub"
+              >
+                <i class="ri-github-fill" aria-hidden="true"></i>
+                View Repo
+              </a>
+            </div>
+
+            <!-- Tools & Technologies — sits under the project summaries -->
+            <h4 class="cyber-subheading">
+              <i class="ri-tools-line" aria-hidden="true"></i>
+              Tools &amp; Technologies I Work With
+            </h4>
+            <ul class="project-tags" role="list" aria-label="Cybersecurity tools and technologies">
+              <li class="tag">Burp Suite</li>
+              <li class="tag">Metasploit</li>
+              <li class="tag">OWASP Top 10</li>
+              <li class="tag">ELK Stack</li>
+              <li class="tag">AWS</li>
+              <li class="tag">Docker</li>
+            </ul>
+
+          </div>
+        </details>
+        <!-- ── END Collapsible ──────────────────────────────────────── -->
+
+      </div>
+
+      <!-- Right: video-intro placeholder (replaces the old stat cards) -->
+      <div class="about-video fade-in fade-delay">
+        <div class="video-card">
+          <div class="video-frame-wrapper">
+            <!--
+              PLACEHOLDER VIDEO — replace poster + src once your
+              one-minute self-intro video is ready.
+            -->
+            <video
+              class="video-frame"
+              controls
+              preload="none"
+              poster="./images/project-images/PLACEHOLDER-intro-video.jpg"
+              aria-label="One minute video introduction of Nnamdi"
+            >
+              <source src="./videos/intro-video.mp4" type="video/mp4" />
+              Your browser does not support embedded video.
+            </video>
+            <span class="video-duration-badge" aria-hidden="true">Intro</span>
           </div>
         </div>
-      </section>
-      <!-- ── END ABOUT ────────────────────────────────────────────── -->
+      </div>
+
+    </div>
+    <!-- END .about-grid -->
+
+  </div>
+</section>
+<!-- ── END ABOUT ────────────────────────────────────────────── -->
+
 
 
       <!-- ── 3. SKILLS SECTION ────────────────────────────────────── -->

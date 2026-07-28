@@ -764,6 +764,129 @@ button {
   color: var(--clr-text-muted);
 }
 
+/* ================================================================
+   COLLAPSIBLE "MY CYBERSECURITY PROJECTS" PANEL
+   ================================================================ */
+.about-more {
+  margin-top: var(--sp-8);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  background-color: var(--clr-bg-3);
+  overflow: hidden;
+}
+
+.about-more summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  transition: color var(--transition-fast);
+}
+
+.about-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.about-more summary::marker {
+  content: "";
+}
+
+.about-more summary:hover {
+  color: var(--clr-accent);
+}
+
+.about-more-icon {
+  color: var(--clr-accent);
+  font-size: 1.2em;
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.about-more[open] .about-more-icon {
+  transform: rotate(180deg);
+}
+
+.about-more-content {
+  padding: 0 var(--sp-6) var(--sp-6);
+  border-top: 1px solid var(--clr-border);
+  padding-top: var(--sp-6);
+}
+
+/* Individual cybersecurity project entry inside the panel */
+.cyber-project {
+  padding-bottom: var(--sp-6);
+  margin-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.cyber-project:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.cyber-project-title {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--clr-text);
+  margin-bottom: var(--sp-2);
+}
+
+.cyber-project-desc {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  margin-bottom: var(--sp-4);
+}
+
+.cyber-project-desc code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* "Tools & Technologies I Work With" mini-heading */
+.cyber-subheading {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text);
+  margin: var(--sp-2) 0 var(--sp-4);
+}
+
+.cyber-subheading i {
+  color: var(--clr-accent);
+}
+
+
+/* ================================================================
+   RIGHT COLUMN — VIDEO INTRO PLACEHOLDER
+   ================================================================ */
+.about-video {
+  display: flex;
+  align-items: flex-start;
+}
+
+.about-video .video-card {
+  width: 100%;
+}
+
 
 /* ================================================================
    9. SKILLS SECTION
